@@ -24,7 +24,7 @@ public class Game extends JFrame {
     }
 
     private void importImage() {
-        InputStream inputStream = getClass().getResourceAsStream("com/jogo/resources/spriteatlas.png");
+        InputStream inputStream = getClass().getResourceAsStream("spriteatlas.png");
         System.out.println(inputStream);
     }
 }
