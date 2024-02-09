@@ -1,12 +1,13 @@
 package com.jogo.main;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
 public class Game extends JFrame {
 
-    private GameScreen gameScreen;
+    private final GameScreen gameScreen;
     private BufferedImage image;
 
     public Game(){
@@ -17,14 +18,20 @@ public class Game extends JFrame {
 
         importImage();
 
-        gameScreen = new GameScreen();
+        gameScreen = new GameScreen(importImage());
 
-        //add(gameScreen);
+        add(gameScreen);
         setVisible(true);
     }
 
-    private void importImage() {
-        InputStream inputStream = getClass().getResourceAsStream("com/jogo/resources/spriteatlas.png");
-        System.out.println(inputStream);
+    private BufferedImage importImage() {
+        InputStream inputStream = getClass().getResourceAsStream("/spriteatlas.png");
+        try{
+            image = ImageIO.read(inputStream);
+        }catch(Exception e){
+           e.printStackTrace();
+            System.out.println("Imagem não encontrada!");
+        }
+        return image;
     }
 }
