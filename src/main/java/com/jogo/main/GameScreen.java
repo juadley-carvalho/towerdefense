@@ -8,16 +8,23 @@ import java.util.Random;
 
 public class GameScreen extends JPanel {
 
-    private Random random;
-    private BufferedImage image;
-    private ArrayList<BufferedImage> sprites = new ArrayList<>();
-    private long lastTime;
-    private int frames;
+    private final Random random = new Random();;
+    private final BufferedImage image;
+    private final ArrayList<BufferedImage> sprites = new ArrayList<>();
+    private final Dimension size = new Dimension(640, 640);
+    private final Render render;
 
     public GameScreen(BufferedImage image){
         this.image = image;
+        render = new Render(this);
+        setPanelSize();
         loadSprites();
-        random = new Random();
+    }
+
+    private void setPanelSize() {
+        setMinimumSize(size);
+        setMaximumSize(size);
+        setPreferredSize(size);
     }
 
     private void loadSprites() {
@@ -36,18 +43,5 @@ public class GameScreen extends JPanel {
                 g.drawImage(sprites.get(random.nextInt(0, 79)), column*32, line*32, null);
             }
         }
-
-        callFPS();
-    }
-
-    private void callFPS(){
-
-        frames++;
-        if (System.currentTimeMillis() - lastTime >= 1000){
-            System.out.println("FPS: " + frames);
-            frames = 0;
-            lastTime = System.currentTimeMillis();
-        }
-
     }
 }

@@ -1,55 +1,55 @@
 package com.jogo.main;
 
+import com.jogo.inputs.KeyboardListener;
+import com.jogo.inputs.MyMouseListener;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements Runnable {
 
     private final GameScreen gameScreen;
     private BufferedImage image;
-    private double timePerFrame;
-    private long lastFrame;
-    private double timePerUpdate;
-    private long lastUpdate;
+    private Thread gameThread;
+
+    private final double FPS_SET = 120.0;
+    private final double UPS_SET = 60.0;
+
+    private KeyboardListener keyboardListener;
+    private MyMouseListener myMouseListener;
 
     public Game(){
-        setSize(656, 679);
+        //setSize(656, 679);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setResizable(false);
-
-        importImage();
 
         gameScreen = new GameScreen(importImage());
 
-        timePerFrame = 1000000000.0 / 120.0; //Define taxa de atualização em 60fps
-        timePerUpdate = 1000000000.0 / 60.0;
-
         add(gameScreen);
+        pack();
+        setLocationRelativeTo(null);
         setVisible(true);
-        gameLoop();
+        initInputs();
+        start();
     }
 
-    private void gameLoop() {
+    private void initInputs(){
+        myMouseListener = new MyMouseListener();
+        keyboardListener = new KeyboardListener();
 
-        while (true){
+        addMouseListener(myMouseListener);
+        addMouseMotionListener(myMouseListener);
+        addKeyListener(keyboardListener);
 
-            if (System.nanoTime() - lastUpdate >= timePerUpdate){ //Verifica se já se passou o tempo para atualizar a tela
-                lastUpdate = System.nanoTime();
-                updateGame();
-            }
-
-            if (System.nanoTime() - lastFrame >= timePerFrame){ //Verifica se já se passou o tempo para atualizar a tela
-                lastFrame = System.nanoTime();
-                repaint();
-            }
-        }
+        requestFocus();
     }
 
-    private void updateGame() {
-        System.out.println("Game updated!");
+    private void start(){
+        gameThread = new Thread(this){
+        };
+        gameThread.start();
     }
 
     private BufferedImage importImage() {
@@ -61,5 +61,43 @@ public class Game extends JFrame {
             System.out.println("Imagem não encontrada!");
         }
         return image;
+    }
+
+    @Override
+    public void run() {
+
+        long lastFrame = System.nanoTime();
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        long lastTimeCheck = System.currentTimeMillis();
+        double timePerUpdate = 1000000000.0 / UPS_SET;
+        long lastUpdate = System.nanoTime();
+
+        int frames = 0;
+        int updates = 0;
+
+        long now;
+
+        while (true){
+
+            now = System.nanoTime();
+            //Render
+            if (now - lastFrame >= timePerFrame){ //Verifica se já se passou o tempo para atualizar a tela
+                lastFrame = now;
+                repaint();
+                frames++;
+            }
+            //Update
+            if (now - lastUpdate >= timePerUpdate){ //Verifica se já se passou o tempo para atualizar a tela
+                lastUpdate = now;
+                updates++;
+            }
+            //Check
+            if (System.currentTimeMillis() - lastTimeCheck >= 1000){
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                frames = 0;
+                updates = 0;
+                lastTimeCheck = System.currentTimeMillis();
+            }
+        }
     }
 }
