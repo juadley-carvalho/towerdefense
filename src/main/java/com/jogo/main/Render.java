@@ -1,20 +1,22 @@
 package com.jogo.main;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public class Render {
 
-    private final GameScreen gameScreen;
+    private final Game game;
 
-    public Render(GameScreen gameScreen){
-        this.gameScreen = gameScreen;
+    public Render(Game game){
+
+        this.game = game;
     }
 
     public void render(Graphics g){
-        switch (GameStates.gameStates){
-            case MENU -> System.out.println("Menu");
-            case SETTINGS -> System.out.println("Settings");
-            case PLAYING -> System.out.println("Playing");
+        switch (GameStates.gameState){
+
+            case MENU -> game.getMenu().render(g);
+            case SETTINGS -> game.getSettings().render(g);
+            case PLAYING -> game.getPlaying().render(g);
         }
     }
 }

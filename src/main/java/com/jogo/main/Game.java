@@ -2,16 +2,19 @@ package com.jogo.main;
 
 import com.jogo.inputs.KeyboardListener;
 import com.jogo.inputs.MyMouseListener;
+import com.jogo.scenes.Playing;
+import com.jogo.scenes.Settings;
+import com.jogo.scenes.Menu;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
 public class Game extends JFrame implements Runnable {
 
-    private final GameScreen gameScreen;
-    private BufferedImage image;
+    private GameScreen gameScreen;
     private Thread gameThread;
 
     private final double FPS_SET = 120.0;
@@ -20,12 +23,17 @@ public class Game extends JFrame implements Runnable {
     private KeyboardListener keyboardListener;
     private MyMouseListener myMouseListener;
 
+    private Render render;
+    private Menu menu;
+    private Playing playing;
+    private Settings settings;
+
     public Game(){
         //setSize(656, 679);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        gameScreen = new GameScreen(importImage());
+        initClasses();
 
         add(gameScreen);
         pack();
@@ -33,6 +41,18 @@ public class Game extends JFrame implements Runnable {
         setVisible(true);
         initInputs();
         start();
+    }
+
+    private void initClasses() {
+        gameScreen = new GameScreen(this);
+        render = new Render(this);
+        menu = new Menu(this);
+        playing = new Playing(this);
+        settings = new Settings(this);
+    }
+
+    public Render getRender(){
+        return render;
     }
 
     private void initInputs(){
@@ -46,21 +66,20 @@ public class Game extends JFrame implements Runnable {
         requestFocus();
     }
 
+    public Menu getMenu(){
+        return menu;
+    }
+    public Playing getPlaying(){
+        return playing;
+    }
+    public Settings getSettings(){
+        return settings;
+    }
+
     private void start(){
         gameThread = new Thread(this){
         };
         gameThread.start();
-    }
-
-    private BufferedImage importImage() {
-        InputStream inputStream = getClass().getResourceAsStream("/spriteatlas.png");
-        try{
-            image = ImageIO.read(inputStream);
-        }catch(Exception e){
-           e.printStackTrace();
-            System.out.println("Imagem não encontrada!");
-        }
-        return image;
     }
 
     @Override
