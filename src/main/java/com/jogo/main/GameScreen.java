@@ -3,36 +3,45 @@ package com.jogo.main;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameScreen extends JPanel {
 
-    private Random random;
-    private BufferedImage image;
+    private final Random random = new Random();;
+    private final BufferedImage image;
+    private final ArrayList<BufferedImage> sprites = new ArrayList<>();
+    private final Dimension size = new Dimension(640, 640);
+    private final Render render;
 
     public GameScreen(BufferedImage image){
         this.image = image;
-        random = new Random();
+        render = new Render(this);
+        setPanelSize();
+        loadSprites();
+    }
+
+    private void setPanelSize() {
+        setMinimumSize(size);
+        setMaximumSize(size);
+        setPreferredSize(size);
+    }
+
+    private void loadSprites() {
+        for (int line = 0; line < 10; line ++){
+            for (int column = 0; column < 10; column ++){
+                sprites.add(image.getSubimage(column*32, line*32, 32, 32));
+            }
+        }
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
-        g.drawImage(this.image, 0, 0, null);
-
-        g.drawImage(image.getSubimage(9*32, 1*32, 32, 32), 0, 0, null);
-        /*for (int line = 0; line < 20; line ++){
+        for (int line = 0; line < 20; line ++){
             for (int column = 0; column < 20; column ++){
-                g.setColor(getRandomColor());
-                g.fillRect(line * 32, column * 32, 32, 32);
+                g.drawImage(sprites.get(random.nextInt(0, 79)), column*32, line*32, null);
             }
-        }*/
-    }
-
-    private Color getRandomColor(){
-        int red = random.nextInt(0, 255);
-        int green = random.nextInt(0, 255);
-        int blue = random.nextInt(0, 255);
-        return new Color(red, green, blue);
+        }
     }
 }

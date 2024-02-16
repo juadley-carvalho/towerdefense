@@ -29,7 +29,7 @@ public class Game extends JFrame {
         try{
             image = ImageIO.read(inputStream);
         }catch(Exception e){
-            e.printStackTrace();
+           e.printStackTrace();
             System.out.println("Imagem não encontrada!");
         }
         return image;
