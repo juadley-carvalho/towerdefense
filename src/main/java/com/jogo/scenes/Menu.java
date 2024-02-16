@@ -17,7 +17,7 @@ public class Menu extends GameScene implements SceneMethods{
 
     public Menu(Game game){
         super(game);
-        this.image = importImage();
+        importImage();
         loadSprites();
     }
 
@@ -38,13 +38,12 @@ public class Menu extends GameScene implements SceneMethods{
         }
     }
 
-    private BufferedImage importImage() {
+    private void importImage() {
         InputStream inputStream = getClass().getResourceAsStream("/spriteatlas.png");
         try{
             image = ImageIO.read(inputStream);
         }catch(Exception e){
             System.out.println("Image not found!");
         }
-        return image;
     }
 }
