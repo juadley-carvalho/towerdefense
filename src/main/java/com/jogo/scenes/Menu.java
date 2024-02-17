@@ -1,6 +1,9 @@
 package com.jogo.scenes;
 
 import com.jogo.main.Game;
+import com.jogo.main.GameStates;
+import com.jogo.ui.MyButton;
+import static com.jogo.main.GameStates.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,19 +17,32 @@ public class Menu extends GameScene implements SceneMethods{
     private BufferedImage image;
     private final Random random = new Random();
     private final ArrayList<BufferedImage> sprites = new ArrayList<>();
+    private MyButton btnPlaying, btnSettings, btnQuit;
 
     public Menu(Game game){
         super(game);
         importImage();
         loadSprites();
+        initButtons();
+    }
+
+    private void initButtons() {
+        btnPlaying = new MyButton("Play", 270, 100, 100, 30);
+        btnSettings = new MyButton("Settings", 270, 160, 100, 30);
+        btnQuit = new MyButton("Quit", 270, 220, 100, 30);
     }
 
     @Override
     public void render(Graphics g) {
-        for (int line = 0; line < 20; line ++){
-            for (int column = 0; column < 20; column ++){
-                g.drawImage(sprites.get(random.nextInt(0, 79)), column*32, line*32, null);
-            }
+        btnPlaying.draw(g);
+        btnSettings.draw(g);
+        btnQuit.draw(g);
+    }
+
+    @Override
+    public void mouseClicked(int x, int y) {
+        if (btnPlaying.getBounds().contains(x, y)){
+            gameState = PLAYING;
         }
     }
 
