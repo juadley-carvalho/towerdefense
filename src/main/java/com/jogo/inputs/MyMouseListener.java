@@ -21,6 +21,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             System.out.println("Click pos: " + e.getX() + "/" + e.getY());
             switch (GameStates.gameState){
                 case MENU -> game.getMenu().mouseClicked(e.getX(), e.getY());
+                case PLAYING -> game.getPlaying().mouseClicked(e.getX(), e.getY());
+                case SETTINGS -> game.getSettings().mouseClicked(e.getX(), e.getY());
             }
         }
         if (e.getButton() == MouseEvent.BUTTON3){
@@ -28,6 +30,15 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
         }
         if (e.getButton() == MouseEvent.BUTTON2){
             System.out.println("Scroll click!");
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        switch (GameStates.gameState){
+            case MENU -> game.getMenu().mouseMoved(e.getX(), e.getY());
+            case PLAYING -> game.getPlaying().mouseClicked(e.getX(), e.getY());
+            case SETTINGS -> game.getSettings().mouseClicked(e.getX(), e.getY());
         }
     }
 
@@ -53,11 +64,6 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
 
     }
 }

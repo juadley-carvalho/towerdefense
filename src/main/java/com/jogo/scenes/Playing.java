@@ -2,7 +2,9 @@ package com.jogo.scenes;
 
 import com.jogo.helpMethods.LevelBuild;
 import com.jogo.main.Game;
+import com.jogo.main.GameStates;
 import com.jogo.managers.TileManager;
+import com.jogo.ui.MyButton;
 
 import java.awt.*;
 
@@ -10,11 +12,14 @@ public class Playing extends GameScene implements SceneMethods{
 
     private final int[][] level;
     private final TileManager tileManager = new TileManager();;
+    private final MyButton btnMenu;
 
     public Playing(Game game) {
 
         super(game);
         level = LevelBuild.getLevelData();
+
+        btnMenu = new MyButton("Menu", 0, 0, 100, 30);
 
     }
 
@@ -28,10 +33,18 @@ public class Playing extends GameScene implements SceneMethods{
             }
         }
 
+        btnMenu.draw(g);
     }
 
     @Override
     public void mouseClicked(int x, int y) {
+        if (btnMenu.getBounds().contains(x, y)){
+            GameStates.gameState = GameStates.MENU;
+        }
+    }
+
+    @Override
+    public void mouseMoved(int x, int y) {
 
     }
 }

@@ -1,6 +1,7 @@
 package com.jogo.scenes;
 
 import com.jogo.main.Game;
+import com.jogo.main.GameStates;
 
 import java.awt.*;
 
@@ -18,6 +19,11 @@ public class Settings extends GameScene implements SceneMethods{
 
     @Override
     public void mouseClicked(int x, int y) {
+        GameStates.gameState = GameStates.SETTINGS;
+    }
+
+    @Override
+    public void mouseMoved(int x, int y) {
 
     }
 }

@@ -43,7 +43,16 @@ public class Menu extends GameScene implements SceneMethods{
     public void mouseClicked(int x, int y) {
         if (btnPlaying.getBounds().contains(x, y)){
             gameState = PLAYING;
+        } else if (btnSettings.getBounds().contains(x, y)) {
+            gameState = SETTINGS;
         }
+    }
+
+    @Override
+    public void mouseMoved(int x, int y){
+        btnPlaying.setMouseOver(btnPlaying.getBounds().contains(x, y));
+        btnSettings.setMouseOver(btnSettings.getBounds().contains(x, y));
+        btnQuit.setMouseOver(btnQuit.getBounds().contains(x, y));
     }
 
     private void loadSprites() {
