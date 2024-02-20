@@ -45,6 +45,16 @@ public class Playing extends GameScene implements SceneMethods{
 
     @Override
     public void mouseMoved(int x, int y) {
+        btnMenu.setMouseOver(btnMenu.getBounds().contains(x, y));
+    }
+
+    @Override
+    public void mousePressed(int x, int y) {
+        btnMenu.setMousePressed(btnMenu.getBounds().contains(x, y));
+    }
+
+    @Override
+    public void mouseReleased(int x, int y) {
 
     }
 }

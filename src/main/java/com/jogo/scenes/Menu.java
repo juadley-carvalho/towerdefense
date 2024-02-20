@@ -45,7 +45,10 @@ public class Menu extends GameScene implements SceneMethods{
             gameState = PLAYING;
         } else if (btnSettings.getBounds().contains(x, y)) {
             gameState = SETTINGS;
+        } else if (btnQuit.getBounds().contains(x, y)){
+            System.exit(0);
         }
+
     }
 
     @Override
@@ -53,6 +56,24 @@ public class Menu extends GameScene implements SceneMethods{
         btnPlaying.setMouseOver(btnPlaying.getBounds().contains(x, y));
         btnSettings.setMouseOver(btnSettings.getBounds().contains(x, y));
         btnQuit.setMouseOver(btnQuit.getBounds().contains(x, y));
+    }
+
+    @Override
+    public void mousePressed(int x, int y) {
+        btnPlaying.setMousePressed(btnPlaying.getBounds().contains(x, y));
+        btnSettings.setMousePressed(btnSettings.getBounds().contains(x, y));
+        btnQuit.setMousePressed(btnQuit.getBounds().contains(x, y));
+    }
+
+    @Override
+    public void mouseReleased(int x, int y) {
+        resetButtons();
+    }
+
+    private void resetButtons() {
+        btnPlaying.setMousePressed(false);
+        btnSettings.setMousePressed(false);
+        btnQuit.setMousePressed(false);
     }
 
     private void loadSprites() {

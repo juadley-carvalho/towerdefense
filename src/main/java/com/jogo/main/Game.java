@@ -5,6 +5,7 @@ import com.jogo.inputs.MyMouseListener;
 import com.jogo.scenes.Playing;
 import com.jogo.scenes.Settings;
 import com.jogo.scenes.Menu;
+import com.jogo.threads.Music;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -37,6 +38,12 @@ public class Game extends JFrame implements Runnable {
         setLocationRelativeTo(null);
         setVisible(true);
         start();
+        playMusic();
+    }
+
+    private void playMusic(){
+        Thread musicThread = new Thread(new Music());
+        musicThread.start();
     }
 
     private void initClasses() {

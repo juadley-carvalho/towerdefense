@@ -37,19 +37,27 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         switch (GameStates.gameState){
             case MENU -> game.getMenu().mouseMoved(e.getX(), e.getY());
-            case PLAYING -> game.getPlaying().mouseClicked(e.getX(), e.getY());
-            case SETTINGS -> game.getSettings().mouseClicked(e.getX(), e.getY());
+            case PLAYING -> game.getPlaying().mouseMoved(e.getX(), e.getY());
+            case SETTINGS -> game.getSettings().mouseMoved(e.getX(), e.getY());
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        switch (GameStates.gameState){
+            case MENU -> game.getMenu().mousePressed(e.getX(), e.getY());
+            case PLAYING -> game.getPlaying().mousePressed(e.getX(), e.getY());
+            case SETTINGS -> game.getSettings().mousePressed(e.getX(), e.getY());
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        switch (GameStates.gameState){
+            case MENU -> game.getMenu().mouseReleased(e.getX(), e.getY());
+            case PLAYING -> game.getPlaying().mouseReleased(e.getX(), e.getY());
+            case SETTINGS -> game.getSettings().mouseReleased(e.getX(), e.getY());
+        }
     }
 
     @Override
