@@ -23,9 +23,10 @@ public class TileManager {
     }
 
     private void createTiles() {
-        tiles.add(GRASS = new Tile(getSprite(8, 1)));
-        tiles.add(WATER = new Tile(getSprite(0, 6)));
-        tiles.add(ROAD = new Tile(getSprite(9, 0)));
+        int id = 0;
+        tiles.add(GRASS = new Tile(getSprite(8, 1), id++, "grass"));
+        tiles.add(WATER = new Tile(getSprite(0, 6), id++, "water"));
+        tiles.add(ROAD = new Tile(getSprite(9, 0), id++, "road"));
     }
 
     public BufferedImage getSprite(int id){

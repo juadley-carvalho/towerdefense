@@ -9,7 +9,7 @@ import java.awt.*;
 public class GameScreen extends JPanel {
 
 
-    private final Dimension size = new Dimension(640, 640);
+    private final Dimension size = new Dimension(640, 740);
     private final Game game;
 
     private KeyboardListener keyboardListener;
