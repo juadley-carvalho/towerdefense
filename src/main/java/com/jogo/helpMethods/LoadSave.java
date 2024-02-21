@@ -19,4 +19,18 @@ public class LoadSave {
 
         return image;
     }
+
+    public static BufferedImage getBackground(){
+
+        BufferedImage image = null;
+
+        InputStream inputStream = LoadSave.class.getResourceAsStream("/background2.png");
+        try{
+            image = ImageIO.read(inputStream);
+        }catch(Exception e){
+            System.out.println("Image not found!");
+        }
+
+        return image;
+    }
 }

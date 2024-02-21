@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class MyButton {
 
-    private final int x, y, width, height;
+    public final int x, y, width, height, id;
     private final String text;
     private Rectangle bounds;
     private boolean mouseOver, mousePressed;
@@ -15,7 +15,22 @@ public class MyButton {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.id = -1;
         initBounds();
+    }
+
+    public MyButton(String text, int x, int y, int width, int height, int id){
+        this.text = text;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.id = id;
+        initBounds();
+    }
+
+    public int getId(){
+        return id;
     }
 
     public void draw(Graphics g){
@@ -55,6 +70,14 @@ public class MyButton {
         int w = g.getFontMetrics().stringWidth(text);
         int h = g.getFontMetrics().getHeight();
         g.drawString(text,x + width/2 - w/2, y + height/2 + h/2);
+    }
+
+    public boolean isMouseOver(){
+        return mouseOver;
+    }
+
+    public boolean isMousePressed(){
+        return mousePressed;
     }
 
     public void setMouseOver(boolean mouseOver){

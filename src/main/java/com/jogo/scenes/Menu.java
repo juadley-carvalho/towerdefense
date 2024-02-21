@@ -1,5 +1,6 @@
 package com.jogo.scenes;
 
+import com.jogo.helpMethods.LoadSave;
 import com.jogo.main.Game;
 import com.jogo.main.GameStates;
 import com.jogo.ui.MyButton;
@@ -34,6 +35,9 @@ public class Menu extends GameScene implements SceneMethods{
 
     @Override
     public void render(Graphics g) {
+        BufferedImage background = LoadSave.getBackground().getSubimage(576, 284, 640, 740);
+
+        g.drawImage(background, 0, 0, Color.BLACK, null);
         btnPlaying.draw(g);
         btnSettings.draw(g);
         btnQuit.draw(g);
