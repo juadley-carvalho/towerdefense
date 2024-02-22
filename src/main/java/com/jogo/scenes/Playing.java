@@ -19,6 +19,7 @@ public class Playing extends GameScene implements SceneMethods{
     private boolean drawSelect;
     private int lastTileX;
     private int lastTileY;
+    private int lastTileId;
 
     public Playing(Game game) {
 
@@ -72,10 +73,11 @@ public class Playing extends GameScene implements SceneMethods{
             int tileX = mouseX / 32;
             int tileY = mouseY / 32;
 
-            if (lastTileX == tileX && lastTileY == tileY) return;
+            if (lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId()) return;
 
             lastTileX = tileX;
             lastTileY = tileY;
+            lastTileId = selectedTile.getId();
 
             level[tileY][tileX] = selectedTile.getId();
         }

@@ -35,10 +35,9 @@ public class Menu extends GameScene implements SceneMethods{
 
     @Override
     public void render(Graphics g) {
-        //BufferedImage background = LoadSave.getBackground().getSubimage(576, 284, 640, 740);
-        //BufferedImage background = LoadSave.getBackground();
+        BufferedImage background = LoadSave.getBackground();
 
-        //g.drawImage(background, 0, 0, Color.BLACK, null);
+        g.drawImage(background, 0, 0, Color.BLACK, null);
         btnPlaying.draw(g);
         btnSettings.draw(g);
         btnQuit.draw(g);
