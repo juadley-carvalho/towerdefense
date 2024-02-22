@@ -24,7 +24,7 @@ public class LoadSave {
 
         BufferedImage image = null;
 
-        InputStream inputStream = LoadSave.class.getResourceAsStream("/background2.png");
+        InputStream inputStream = LoadSave.class.getResourceAsStream("/background1.png");
         try{
             image = ImageIO.read(inputStream);
         }catch(Exception e){
