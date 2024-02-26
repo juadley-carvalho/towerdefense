@@ -1,6 +1,7 @@
 package com.jogo.scenes;
 
 import com.jogo.helpMethods.LevelBuild;
+import com.jogo.helpMethods.LoadSave;
 import com.jogo.main.Game;
 import com.jogo.managers.TileManager;
 import com.jogo.objects.Tile;
