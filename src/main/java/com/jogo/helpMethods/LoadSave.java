@@ -90,6 +90,7 @@ public class LoadSave {
         File level = new File("src//main//levels//" + name + ".txt");
         if (level.exists()){
             ArrayList<Integer> idArray = readFromFile(level);
+            return Utils.arrayTo2D(idArray, 20, 20);
         }else{
             System.out.println("File " + name + ".txt does not exist!");
             return null;
