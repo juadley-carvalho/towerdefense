@@ -1,5 +1,6 @@
 package com.jogo.ui;
 
+import com.jogo.helpMethods.LoadSave;
 import com.jogo.main.GameStates;
 import com.jogo.objects.Tile;
 import com.jogo.scenes.Playing;
@@ -12,7 +13,7 @@ public class BottomBar {
 
     private final int x, y, width, height;
     private final Playing playing;
-    private MyButton btnMenu;
+    private MyButton btnMenu, btnSave;
     private final ArrayList<MyButton> tileButtons = new ArrayList<>();
     private Tile selectedTile;
 
@@ -28,6 +29,7 @@ public class BottomBar {
 
     private void initButtons() {
         btnMenu = new MyButton("Menu", 1, 641, 100, 30);
+        btnSave = new MyButton("Save", 1, 676, 100, 30);
 
         int x = 60;
         int id = 0;
@@ -45,6 +47,7 @@ public class BottomBar {
 
     public void drawButtons(Graphics g){
         btnMenu.draw(g);
+        btnSave.draw(g);
 
         drawTileButtons(g);
 
@@ -82,6 +85,10 @@ public class BottomBar {
         }
     }
 
+    private void saveLevel(){
+        LoadSave.saveLevel("newLevel", playing.getLevel());
+    }
+
     public BufferedImage getButtonImage(int id){
         return playing.getTileManager().getSprite(id);
     }
@@ -89,6 +96,8 @@ public class BottomBar {
     public void mouseClicked(int x, int y) {
         if (btnMenu.getBounds().contains(x, y)){
             GameStates.gameState = GameStates.MENU;
+        }else if (btnSave.getBounds().contains(x, y)){
+            saveLevel();
         }else{
             for (MyButton myButton : tileButtons){
                 if (myButton.getBounds().contains(x, y)){
@@ -101,6 +110,7 @@ public class BottomBar {
 
     public void mouseMoved(int x, int y) {
         btnMenu.setMouseOver(btnMenu.getBounds().contains(x, y));
+        btnSave.setMouseOver(btnSave.getBounds().contains(x, y));
         for (MyButton myButton : tileButtons){
             myButton.setMouseOver(myButton.getBounds().contains(x, y));
         }
@@ -108,6 +118,7 @@ public class BottomBar {
 
     public void mousePressed(int x, int y) {
         btnMenu.setMousePressed(btnMenu.getBounds().contains(x, y));
+        btnSave.setMousePressed(btnSave.getBounds().contains(x, y));
         for (MyButton myButton : tileButtons){
             myButton.setMousePressed(myButton.getBounds().contains(x, y));
         }

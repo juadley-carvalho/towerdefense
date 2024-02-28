@@ -1,6 +1,5 @@
 package com.jogo.scenes;
 
-import com.jogo.helpMethods.LevelBuild;
 import com.jogo.helpMethods.LoadSave;
 import com.jogo.main.Game;
 import com.jogo.managers.TileManager;
@@ -25,7 +24,8 @@ public class Playing extends GameScene implements SceneMethods{
     public Playing(Game game) {
 
         super(game);
-        level = LevelBuild.getLevelData();
+        LoadSave.createDefaultLevel();
+        level = LoadSave.getLevelData("defaultLevel");
 
         bottomBar = new BottomBar(0, 640, 640, 100, this);
 
@@ -58,6 +58,10 @@ public class Playing extends GameScene implements SceneMethods{
 
     public TileManager getTileManager(){
         return tileManager;
+    }
+
+    public int[][] getLevel(){
+        return level;
     }
 
     @Override

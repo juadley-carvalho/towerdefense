@@ -62,12 +62,22 @@ public class LoadSave {
         }
     }
 
+    public static void saveLevel(String name, int[][] idArray){
+        File file = new File("src//main//levels//" + name +".txt");
+
+        if (file.exists()){
+            writeToFile(file, Utils.arrayTo1D(idArray));
+        }else{
+            System.out.println("File does not exist!");
+        }
+    }
+
     public static ArrayList<Integer> readFromFile(File file){
         ArrayList<Integer> idArray = new ArrayList<>();
 
         try(Scanner scanner = new Scanner(file)){
             while(scanner.hasNextLine()){
-                idArray.add(scanner.nextInt());
+                idArray.add(Integer.parseInt(scanner.nextLine()));
             }
         }catch(IOException error){
             System.out.println("Error reading file!");
@@ -102,6 +112,15 @@ public class LoadSave {
         for (int i = 0; i < idArray.length; i ++){
             idArray[i] = 0;
         }
-        LoadSave.createLevel("newTestLevel", idArray);
+        LoadSave.createLevel("defaultLevel", idArray);
+    }
+
+    public static void printLevelData(String name){
+        for (int[] newTestLevels : LoadSave.getLevelData(name)) {
+            System.out.println();
+            for (int id : newTestLevels){
+                System.out.print(id + ", ");
+            }
+        }
     }
 }
