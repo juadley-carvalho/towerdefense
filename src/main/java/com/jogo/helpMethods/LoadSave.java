@@ -65,11 +65,11 @@ public class LoadSave {
     public static void saveLevel(String name, int[][] idArray){
         File file = new File("src//main//levels//" + name +".txt");
 
-        if (file.exists()){
-            writeToFile(file, Utils.arrayTo1D(idArray));
-        }else{
-            System.out.println("File does not exist!");
+        if (!file.exists()){
+            createFile(name);
         }
+        writeToFile(file, Utils.arrayTo1D(idArray));
+        System.out.println("File " + name + ".txt saved!");
     }
 
     public static ArrayList<Integer> readFromFile(File file){

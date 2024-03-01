@@ -86,7 +86,7 @@ public class BottomBar {
     }
 
     private void saveLevel(){
-        LoadSave.saveLevel("newLevel", playing.getLevel());
+        LoadSave.saveLevel("defaultLevel", playing.getLevel());
     }
 
     public BufferedImage getButtonImage(int id){

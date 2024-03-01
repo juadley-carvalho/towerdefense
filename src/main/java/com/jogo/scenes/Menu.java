@@ -2,7 +2,6 @@ package com.jogo.scenes;
 
 import com.jogo.helpMethods.LoadSave;
 import com.jogo.main.Game;
-import com.jogo.main.GameStates;
 import com.jogo.ui.MyButton;
 import static com.jogo.main.GameStates.*;
 
@@ -18,7 +17,7 @@ public class Menu extends GameScene implements SceneMethods{
     private BufferedImage image;
     private final Random random = new Random();
     private final ArrayList<BufferedImage> sprites = new ArrayList<>();
-    private MyButton btnPlaying, btnSettings, btnQuit;
+    private MyButton btnPlaying, btnEditing, btnSettings, btnQuit;
 
     public Menu(Game game){
         super(game);
@@ -29,8 +28,9 @@ public class Menu extends GameScene implements SceneMethods{
 
     private void initButtons() {
         btnPlaying = new MyButton("Play", 270, 100, 100, 30);
-        btnSettings = new MyButton("Settings", 270, 160, 100, 30);
-        btnQuit = new MyButton("Quit", 270, 220, 100, 30);
+        btnEditing = new MyButton("Edit", 270, 160, 100, 30);
+        btnSettings = new MyButton("Settings", 270, 220, 100, 30);
+        btnQuit = new MyButton("Quit", 270, 280, 100, 30);
     }
 
     @Override
@@ -39,6 +39,7 @@ public class Menu extends GameScene implements SceneMethods{
 
         g.drawImage(background, 0, 0, Color.BLACK, null);
         btnPlaying.draw(g);
+        btnEditing.draw(g);
         btnSettings.draw(g);
         btnQuit.draw(g);
     }
@@ -47,6 +48,8 @@ public class Menu extends GameScene implements SceneMethods{
     public void mouseClicked(int x, int y) {
         if (btnPlaying.getBounds().contains(x, y)){
             gameState = PLAYING;
+        } else if (btnEditing.getBounds().contains(x, y)) {
+            gameState = EDITING;
         } else if (btnSettings.getBounds().contains(x, y)) {
             gameState = SETTINGS;
         } else if (btnQuit.getBounds().contains(x, y)){
@@ -58,6 +61,7 @@ public class Menu extends GameScene implements SceneMethods{
     @Override
     public void mouseMoved(int x, int y){
         btnPlaying.setMouseOver(btnPlaying.getBounds().contains(x, y));
+        btnEditing.setMouseOver(btnEditing.getBounds().contains(x, y));
         btnSettings.setMouseOver(btnSettings.getBounds().contains(x, y));
         btnQuit.setMouseOver(btnQuit.getBounds().contains(x, y));
     }
@@ -65,6 +69,7 @@ public class Menu extends GameScene implements SceneMethods{
     @Override
     public void mousePressed(int x, int y) {
         btnPlaying.setMousePressed(btnPlaying.getBounds().contains(x, y));
+        btnEditing.setMousePressed(btnEditing.getBounds().contains(x, y));
         btnSettings.setMousePressed(btnSettings.getBounds().contains(x, y));
         btnQuit.setMousePressed(btnQuit.getBounds().contains(x, y));
     }
@@ -81,6 +86,7 @@ public class Menu extends GameScene implements SceneMethods{
 
     private void resetButtons() {
         btnPlaying.setMousePressed(false);
+        btnEditing.setMousePressed(false);
         btnSettings.setMousePressed(false);
         btnQuit.setMousePressed(false);
     }

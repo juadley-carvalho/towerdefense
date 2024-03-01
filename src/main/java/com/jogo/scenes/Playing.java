@@ -24,7 +24,7 @@ public class Playing extends GameScene implements SceneMethods{
     public Playing(Game game) {
 
         super(game);
-        LoadSave.createDefaultLevel();
+        //LoadSave.createDefaultLevel();
         level = LoadSave.getLevelData("defaultLevel");
 
         bottomBar = new BottomBar(0, 640, 640, 100, this);
